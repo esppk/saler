@@ -1,0 +1,54 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+```{r}
+
+
+Sys.setlocale(category = "LC_ALL", locale = "chs")
+
+library(tidyverse)
+```
+
+
+```{r}
+
+sales %>% colnames()
+```
+
+
+
+```{r}
+
+sales %>% 
+  mutate(firm = 企业简称,
+            past_sales = `1月基准销售金额`,
+            past_eq = `1月基准权益销售金额`, 
+            past_area = `1月基准销售面积`,
+            cur_sales = if_else(is.na(`2月企业提供销售金额`), `2月单月预估销售金额`, `2月企业提供销售金额`),
+            eq_ratio = `2月基准权益比例`,
+            price = `2月基准销售均价`,
+            # cur_eq = if_else(is.na(`2月企业提供权益销售`), cur_sales*eq_ratio,`2月企业提供权益销售`),
+            # cur_area = if_else(is.na(`2月企业提供销售面积`), cur_sales/price, `2月企业提供销售面积`),
+            cur_eq = `2月企业提供权益销售`,
+            cur_area = `2月企业提供销售面积`,
+            total_sales = if_else(is.na(`1-2月企业提供销售金额`), cur_sales + past_sales, `1-2月企业提供销售金额`),
+            total_eq = case_when(
+               !is.na(`1-2月企业提供权益销售`) ~ `1-2月企业提供权益销售`,
+               !is.na(cur_eq) ~ past_eq + cur_eq,
+               TRUE ~ total_sales * eq_ratio),
+            total_area = case_when(
+              !is.na(`1-2月企业提供销售面积`) ~ `1-2月企业提供销售面积`,
+              !is.na(cur_area) ~ cur_area + past_area,
+              TRUE ~  total_sales/price)
+            ) %>% 
+  select(firm, starts_with("total"), starts_with("cur")) ->df
+```
+
+
+```{r}
+
+df %>% write_excel_csv("df.csv")
+```
+
