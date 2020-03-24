@@ -2,15 +2,36 @@
 #' 
 #' @param request Internal parameter for `{shiny}`. 
 #'     DO NOT REMOVE.
-#' @import shiny
+#' @import shiny bs4Dash 
 #' @noRd
 app_ui <- function(request) {
   tagList(
     # Leave this function for adding external resources
     golem_add_external_resources(),
     # List the first level UI elements here 
-    fluidPage(
-      h1("saler")
+    bs4DashPage(
+      title = "Sales consolidation",
+      navbar = bs4DashNavbar(),
+      sidebar = bs4DashSidebar(
+        inputId = "nav_sidebar",
+        bs4SidebarMenu(
+          bs4SidebarHeader("Progress"),
+          bs4SidebarMenuSubItem(
+              "inputs_menu", 
+              tabName = "data_inputs", 
+              icon = "circle-thin"),
+          bs4SidebarMenuSubItem(
+              "Generate Ranking", 
+              tabName = "rank_gen", 
+              icon = "beer")
+          )
+      ),
+      body = bs4DashBody(
+        bs4TabItems(
+          mod_inputs_ui("inputs_ui_1"),
+          mod_generate_ui("generate_ui_1")
+        )
+      )
     )
   )
 }
