@@ -8,7 +8,7 @@
 #' 
 #' @noRd 
 #'
-#' @import bs4Dash ggplot2 magick
+#' @import bs4Dash ggplot2 magick shinycssloaders
 #' @importFrom shiny NS tagList 
 mod_generate_ui <- function(id){
   ns <- NS(id)
@@ -16,8 +16,8 @@ mod_generate_ui <- function(id){
   bs4TabItem(
     tabName = "rank_gen",
     h1("hello GEN"),
-    actionBttn(ns("ok"), "GEN"),
-    imageOutput(ns("pic")),
+    actionButton(ns("ok"), "GEN"),
+    withSpinner(imageOutput(ns("pic"))),
     textOutput(ns("text"))
   )
 }
@@ -30,40 +30,38 @@ mod_generate_server <- function(input, output, session, data_lst){
  
   output$pic <- renderImage({
     
-    input$ok
+    req(input$ok)
     
     
-    isolate({
+    # bigdata <- image_read('https://jeroen.github.io/images/bigdata.jpg')
+    
+    # gg <- image_graph(width = 400, height = 400, res = 96)
+    # # ggplot(aes(total_area), data = df) + geom_histogram()
+    header <- image_read("header.png")
+    
+    # png("tbl.png", width = 500, 2300, res = 100)
+    ggpubr::ggtexttable(data_lst$data(), rows = NULL)
+    # dev.off()
+    
+    
+    # ggplot(aes(total), data = data_lst$data() ) + geom_histogram()
+    ggsave("tbl.png", height = 70, limitsize = FALSE, units = "cm")
+    
+    img <- image_trim(image_read("tbl.png"))
+    
+    
+    imgs <- image_append(image_scale(c(header, img), "400x"), stack = TRUE)
+    
+    image_write(imgs, "imgs.png")
+    
+    list(
+        src = "imgs.png",
+        contentType = 'image/png',
+        width = 400,
+        height = 1400,
+        alt = "This is alternate text")
       
-      # bigdata <- image_read('https://jeroen.github.io/images/bigdata.jpg')
-      
-      # gg <- image_graph(width = 400, height = 400, res = 96)
-      # # ggplot(aes(total_area), data = df) + geom_histogram()
-      header <- image_read("header.png")
-      
-      # png("tbl.png", width = 500, 2300, res = 100)
-      ggpubr::ggtexttable(data_lst$data(), rows = NULL)
-      # dev.off()
-      
-      
-      # ggplot(aes(total), data = data_lst$data() ) + geom_histogram()
-      ggsave("tbl.png", height = 70, limitsize = FALSE, units = "cm")
-      
-      img <- image_trim(image_read("tbl.png"))
-      
-      
-      imgs <- image_append(image_scale(c(header, img), "400x"), stack = TRUE)
-      
-      image_write(imgs, "imgs.png")
-      
-      list(
-          src = "imgs.png",
-          contentType = 'image/png',
-          width = 400,
-          height = 1400,
-          alt = "This is alternate text")
-      
-    })
+
     
 
   }, deleteFile = TRUE)

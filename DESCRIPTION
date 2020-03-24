@@ -25,7 +25,8 @@ Imports:
     tools,
     ggplot2,
     magick,
-    ggpubr
+    ggpubr,
+    shinycssloaders
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 6.1.1

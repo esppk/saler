@@ -27,6 +27,7 @@ usethis::use_package("DT")
 usethis::use_package("ggplot2")
 usethis::use_package("magick")
 usethis::use_package("ggpubr")
+usethis::use_package("shinycssloaders")
 # usethis::use_package( "pool" )
 
 ## Add modules ----
