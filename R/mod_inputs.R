@@ -30,7 +30,7 @@ mod_inputs_ui <- function(id){
         )
       ),
       col_8(
-        actionButton("refresh", "Refresh Table", icon = icon("sync")),
+        actionButton(ns("refresh"), "Refresh Table", icon = icon("sync")),
         DT::DTOutput(ns("dt"))
       )
     )
@@ -54,16 +54,16 @@ mod_inputs_server <- function(input, output, session, db){
     if(input$if_cum == TRUE){
       
       tagList(
-        textInput(ns("cfsales"), "Cum Sales by firm"),
-        textInput(ns("cfeq"), "Cum Equity by firm"),
-        textInput(ns("cfarea"), "Cum Area by firm")
+        textInput(ns("cfsales"), "Cum Sales by firm", value = 0),
+        textInput(ns("cfeq"), "Cum Equity by firm", value = 0),
+        textInput(ns("cfarea"), "Cum Area by firm", value = 0)
       )
     } else {
       
       tagList(
-        textInput(ns("fsales"), "Sales by firm"),
-        textInput(ns("feq"), "Equity by firm"),
-        textInput(ns("farea"), "Area by firm")
+        textInput(ns("fsales"), "Sales by firm", value = 0),
+        textInput(ns("feq"), "Equity by firm", value = 0),
+        textInput(ns("farea"), "Area by firm", value = 0)
       )
       
     }
@@ -74,9 +74,9 @@ mod_inputs_server <- function(input, output, session, db){
     if(input$if_adj == TRUE) {
       
       tagList(
-        textInput(ns("gsales"), "Adjusted Sales"),
-        textInput(ns("geq"), "Adjusted Equity"),
-        textInput(ns("garea"), "Adjusted Area")
+        textInput(ns("gsales"), "Adjusted Sales", value = 0),
+        textInput(ns("geq"), "Adjusted Equity", value = 0),
+        textInput(ns("garea"), "Adjusted Area", value = 0)
       )
     }
   })
@@ -86,9 +86,46 @@ mod_inputs_server <- function(input, output, session, db){
   observeEvent(
     input$ok, {
     
-    record$sale <- input$fsales
-    record$eq <- input$feq
-    record$area <- input$farea
+    
+    
+    filter_firm <- str_interp('{"firm":"${input$firm}"}')
+    
+    if(input$if_cum != TRUE) {
+      
+      record$sale <- input$fsales
+      record$eq <- input$feq
+      record$area <- input$farea
+      
+      update_sale <- str_interp('{"$set":{"sale_firm": ${input$fsales}}}')
+      db$update(filter_firm, update_sale)
+      
+      update_eq <- str_interp('{"$set":{"eq_firm": ${input$feq}}}')
+      db$update(filter_firm, update_eq)
+      
+      update_area <- str_interp('{"$set":{"area_firm": ${input$farea}}}')
+      db$update(filter_firm, update_area)
+    
+    } else {
+      
+      record$sale <- input$cfsales
+      record$eq <- input$cfeq
+      record$area <- input$cfarea
+      
+      
+      update_sale <- str_interp('{"$set":{"cum_sale": ${input$cfsales}}}')
+      db$update(filter_firm, update_sale)
+      
+      update_eq <- str_interp('{"$set":{"cum_eq": ${input$cfeq}}}')
+      db$update(filter_firm, update_eq)
+      
+      update_area <- str_interp('{"$set":{"cum_area": ${input$cfarea}}}')
+      db$update(filter_firm, update_area)
+    }
+    
+    
+    
+    
+    
     
     sendSweetAlert(
       session = session,
@@ -111,6 +148,9 @@ mod_inputs_server <- function(input, output, session, db){
       ),
       html = TRUE
     )
+    # updateTextInput(session, "feq", value = "")
+    lapply(list("fsales", "feq", "farea", "cfsales", "cfeq", "cfarea"), 
+           function(.x) updateTextInput(session, .x, value = 0))
   })
   
   
