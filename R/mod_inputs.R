@@ -4,6 +4,7 @@
 #'
 #' @param id,input,output,session Internal parameters for {shiny}.
 #'
+#' @param db
 #' @noRd 
 #' 
 #'
@@ -20,17 +21,16 @@ mod_inputs_ui <- function(id){
           status = "primary",
           solidHeader = TRUE,
           selectizeInput(ns("firm"), "Select Firm", firms),
-          textInput(ns("fsales"), "Sales by firm"),
-          textInput(ns("feq"), "Equity by firm"),
-          textInput(ns("farea"), "Area by firm"),
+          switchInput(ns("if_cum"), value = FALSE, onLabel = "Cumulative", offLabel = "Single Month"),
+          uiOutput(ns("byfirms")),
           shinyWidgets::materialSwitch(ns("if_adj"), label = "Ajusted",
                                        status = "danger"),
           uiOutput(ns("adj_sales")),
-          fileInput(ns("file_xl"), "Upload original file"),
           actionButton(ns("ok"), "OK")
         )
       ),
       col_8(
+        actionButton("refresh", "Refresh Table", icon = icon("sync")),
         DT::DTOutput(ns("dt"))
       )
     )
@@ -44,77 +44,88 @@ mod_inputs_ui <- function(id){
 #' @import dplyr shinyWidgets
 #' 
 #' @importFrom DT renderDT
-mod_inputs_server <- function(input, output, session){
+mod_inputs_server <- function(input, output, session, db){
   ns <- session$ns
   
   record <- reactiveValues()
+  
+  output$byfirms <- renderUI({
+    
+    if(input$if_cum == TRUE){
+      
+      tagList(
+        textInput(ns("cfsales"), "Cum Sales by firm"),
+        textInput(ns("cfeq"), "Cum Equity by firm"),
+        textInput(ns("cfarea"), "Cum Area by firm")
+      )
+    } else {
+      
+      tagList(
+        textInput(ns("fsales"), "Sales by firm"),
+        textInput(ns("feq"), "Equity by firm"),
+        textInput(ns("farea"), "Area by firm")
+      )
+      
+    }
+  })
   
   output$adj_sales <- renderUI({
     
     if(input$if_adj == TRUE) {
       
       tagList(
-        textInput(ns("gsales"), "Sales by firm"),
-        textInput(ns("geq"), "Equity by firm"),
-        textInput(ns("garea"), "Area by firm")
+        textInput(ns("gsales"), "Adjusted Sales"),
+        textInput(ns("geq"), "Adjusted Equity"),
+        textInput(ns("garea"), "Adjusted Area")
       )
     }
   })
   
-  data <- reactive({
-    req(input$file_xl)
+
+
+  observeEvent(
+    input$ok, {
     
-    ext <- tools::file_ext(input$file_xl$name)
+    record$sale <- input$fsales
+    record$eq <- input$feq
+    record$area <- input$farea
     
-    switch(ext,
-           
-           xlsx = readxl::read_excel(input$file_xl$datapath),
-           csv = readr::read_csv(input$file_xl$datapath),
-           validate("Invaldi file; please upload either csv or xlsx.")
+    sendSweetAlert(
+      session = session,
+      title = NULL,
+      text = tags$span(
+        tags$h3("Please Comfirm your inputs",
+                style = "color: steelblue;"),
+        tags$br(),
+        tags$br(),
+        "Sales: ",
+        record$sale,
+        tags$br(),
+        "Equity: ",
+        record$eq,
+        tags$br(),
+        "Area: ",
+        record$area,
+        tags$br(),
+        icon("thumbs-up")
+      ),
+      html = TRUE
     )
   })
   
+  
+  
   output$dt <- renderDT({
     
-    head(data())
+    input$refresh
+    db$find()
   })
   
 
-    observeEvent(
-      input$ok, {
-      
-      record$sale <- input$fsales
-      record$eq <- input$feq
-      record$area <- input$farea
-      
-      sendSweetAlert(
-        session = session,
-        title = NULL,
-        text = tags$span(
-          tags$h3("Please Comfirm your inputs",
-                  style = "color: steelblue;"),
-          tags$br(),
-          tags$br(),
-          "Sales: ",
-          record$sale,
-          tags$br(),
-          "Equity: ",
-          record$eq,
-          tags$br(),
-          "Area: ",
-          record$area,
-          tags$br(),
-          icon("thumbs-up")
-        ),
-        html = TRUE
-      )
-    })
-    
-  
-  return (list(
-    updates = reactive({ record }),
-    data = reactive({ data() })
-  ))
+  # return (list(
+  #   updates = reactive({ record }),
+  #   data = reactive({ data() })
+  # ))
 
 }
     

@@ -17,6 +17,10 @@ app_ui <- function(request) {
         bs4SidebarMenu(
           bs4SidebarHeader("Progress"),
           bs4SidebarMenuSubItem(
+            "Init File", 
+            tabName = "file_inputs", 
+            icon = "heart"),
+          bs4SidebarMenuSubItem(
               "inputs_menu", 
               tabName = "data_inputs", 
               icon = "circle-thin"),
@@ -28,6 +32,7 @@ app_ui <- function(request) {
       ),
       body = bs4DashBody(
         bs4TabItems(
+          mod_initiate_ui("initiate_ui_1"),
           mod_inputs_ui("inputs_ui_1"),
           mod_generate_ui("generate_ui_1")
         )

@@ -28,12 +28,14 @@ usethis::use_package("ggplot2")
 usethis::use_package("magick")
 usethis::use_package("ggpubr")
 usethis::use_package("shinycssloaders")
+usethis::use_package("mongolite")
 # usethis::use_package( "pool" )
 
 ## Add modules ----
 ## Create a module infrastructure in R/
 golem::add_module( name = "inputs" ) # Name of the module
 golem::add_module( name = "generate" ) # Name of the module
+golem::add_module( name = "initiate" ) # Name of the module
 
 ## Add helper functions ----
 ## Creates ftc_* and utils_*

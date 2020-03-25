@@ -4,7 +4,7 @@
 #'
 #' @param id,input,output,session Internal parameters for {shiny}.
 #' 
-#' @param data_lst
+#' @param db
 #' 
 #' @noRd 
 #'
@@ -25,7 +25,7 @@ mod_generate_ui <- function(id){
 #' generate Server Function
 #'
 #' @noRd 
-mod_generate_server <- function(input, output, session, data_lst){
+mod_generate_server <- function(input, output, session, db){
   ns <- session$ns
  
   output$pic <- renderImage({
@@ -39,8 +39,9 @@ mod_generate_server <- function(input, output, session, data_lst){
     # # ggplot(aes(total_area), data = df) + geom_histogram()
     header <- image_read("header.png")
     
+    
     # png("tbl.png", width = 500, 2300, res = 100)
-    ggpubr::ggtexttable(data_lst$data(), rows = NULL)
+    ggpubr::ggtexttable(db$find(), rows = NULL)
     # dev.off()
     
     
