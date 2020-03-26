@@ -139,12 +139,12 @@ mod_generate_server <- function(input, output, session, db){
     showtext::showtext_auto()
     ggtexttable(tbl, rows = NULL, 
                         theme = ttheme(base_colour = "gray50",
-                          colnames.style = colnames_style(size = 6,
+                          colnames.style = colnames_style(size = 8, color = "white",
                             fill = "#f3a06e", linewidth = 0.3),
-                          padding = unit(c(4, 4), "mm"), base_size = 14, 
-                          tbody.style = tbody_style(size = 6,
+                          padding = unit(c(8, 3), "mm"), base_size = 14, 
+                          tbody.style = tbody_style(size = 8,
                                               fill = c("#f4d5b1", "#eeeded"),
-                                              color = "gray20", face = "plain",
+                                              color = "gray10", face = "plain",
                                               linewidth = 0.3)
                         )) + theme(text = element_text(family = "source-han-sans-cn"))
     # dev.off()
