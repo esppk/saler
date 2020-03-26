@@ -18,6 +18,7 @@ mod_initiate_ui <- function(id){
         bs4Card(
           width = 12,
           fileInput(ns("file_xl"), "Upload original file"),
+          actionButton(ns("append"), "Append Database"),
           actionButton(ns("ok"), "Overide Database")
         )
       ),
@@ -30,7 +31,7 @@ mod_initiate_ui <- function(id){
     
 #' initiate Server Function
 #' 
-#' @import mongolite
+#' @import mongolite dplyr
 #'
 #' @noRd 
 mod_initiate_server <- function(input, output, session, db){
@@ -57,18 +58,58 @@ mod_initiate_server <- function(input, output, session, db){
     head(data())
   })
   
+  observeEvent(input$append, {
+   
+    tryCatch({
+      data() %>% 
+        mutate_at(vars(-firm), as.numeric) %>% 
+        mutate_at(vars(-firm), ~ if_else(is.na(.x), 0, .x)) %>% 
+        db$insert(.)
+      
+      sendSweetAlert(
+        session = session,
+        title = "Success !!",
+        text = "All in order",
+        type = "success")
+      
+    },
+    error = function(e) {
+      sendSweetAlert(
+        session = session,
+        title = "Error !!",
+        text = "Error parsing the colnames; Please make sure your have column `firm`",
+        type = "error"
+      )
+    })
+  })
   
   observeEvent(input$ok, {
     
     db$drop()
-    db$insert(data())
     
-    sendSweetAlert(
-      session = session,
-      title = "Success !!",
-      text = "All in order",
-      type = "success"
-    )
+    tryCatch({
+      data() %>% 
+        mutate_at(vars(-firm), as.numeric) %>% 
+        mutate_at(vars(-firm), ~ if_else(is.na(.x), 0, .x)) %>% 
+        db$insert(.)
+      
+      sendSweetAlert(
+        session = session,
+        title = "Success !!",
+        text = "All in order",
+        type = "success")
+      
+    },
+    error = function(e) {
+      sendSweetAlert(
+        session = session,
+        title = "Error !!",
+        text = "Error parsing the colnames; Please make sure your have column `firm`",
+        type = "error"
+      )
+    }) 
+    
+
   })
 }
     

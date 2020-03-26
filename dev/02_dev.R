@@ -29,6 +29,7 @@ usethis::use_package("magick")
 usethis::use_package("ggpubr")
 usethis::use_package("shinycssloaders")
 usethis::use_package("mongolite")
+usethis::use_package("showtext")
 # usethis::use_package( "pool" )
 
 ## Add modules ----
