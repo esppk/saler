@@ -21,6 +21,7 @@ mod_inputs_ui <- function(id){
           status = "primary",
           solidHeader = TRUE,
           selectizeInput(ns("firm"), "Select Firm", firms),
+          
           switchInput(ns("if_cum"), value = FALSE, onLabel = "Cumulative", offLabel = "Single Month"),
           uiOutput(ns("byfirms")),
           shinyWidgets::materialSwitch(ns("if_adj"), label = "Ajusted",
@@ -41,7 +42,7 @@ mod_inputs_ui <- function(id){
 #'
 #' @noRd 
 #' 
-#' @import dplyr shinyWidgets
+#' @import dplyr shinyWidgets stringr
 #' 
 #' @importFrom DT renderDT
 mod_inputs_server <- function(input, output, session, db){
@@ -74,6 +75,7 @@ mod_inputs_server <- function(input, output, session, db){
     if(input$if_adj == TRUE) {
       
       tagList(
+        switchInput(ns("adj_cum"), value = FALSE, onLabel = "Cumulative", offLabel = "Single Month"),
         textInput(ns("gsales"), "Adjusted Sales", value = 0),
         textInput(ns("geq"), "Adjusted Equity", value = 0),
         textInput(ns("garea"), "Adjusted Area", value = 0)
@@ -123,8 +125,31 @@ mod_inputs_server <- function(input, output, session, db){
     }
     
     
-    
-    
+    if (input$if_adj){
+      
+      if (input$adj_cum){
+        
+        update_sale <- str_interp('{"$set":{"cum_adj_sale": ${input$gsales}}}')
+        db$update(filter_firm, update_sale)
+        
+        update_eq <- str_interp('{"$set":{"cum_adj_eq": ${input$geq}}}')
+        db$update(filter_firm, update_eq)
+        
+        update_area <- str_interp('{"$set":{"cum_adj_area": ${input$garea}}}')
+        db$update(filter_firm, update_area)
+      } else {
+        
+        update_sale <- str_interp('{"$set":{"adj_sale": ${input$gsales}}}')
+        db$update(filter_firm, update_sale)
+        
+        update_eq <- str_interp('{"$set":{"adj_eq": ${input$geq}}}')
+        db$update(filter_firm, update_eq)
+        
+        update_area <- str_interp('{"$set":{"adj_area": ${input$garea}}}')
+        db$update(filter_firm, update_area)
+      }
+      
+    }
     
     
     sendSweetAlert(
