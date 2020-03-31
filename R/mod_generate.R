@@ -82,7 +82,9 @@ mod_generate_server <- function(input, output, session, db){
               (cum_eq + cum_sale + cum_area + eq_firm + sale_firm + area_firm) > 0 ~ "公司提供",
               TRUE ~ "指数预测")
      ) %>% 
-     select(firm, starts_with("total"), starts_with("cur"), source) 
+     select(firm, starts_with("total"), starts_with("cur"), source) %>% 
+     left_join(pydf, by = "firm") %>% 
+     mutate_at(vars(starts_with("total")), ~ round(.x, 1))
     
     
     sendSweetAlert(
@@ -117,9 +119,9 @@ mod_generate_server <- function(input, output, session, db){
     isolate({
       if(input$rank == "sales") {
         
+        str(head(df))
         df %>% 
-          select(firm, total_sales) %>% 
-          arrange(desc(total_sales)) %>% 
+          arrange(desc(total_sales), py) %>% 
           slice(1:100) %>% 
           bind_cols(rank = 1:100) %>% 
           transmute(`排名` = rank, `公司名称` = firm, `累计全口径销售（亿元）` = round(total_sales, 1)) -> tbl
@@ -130,8 +132,7 @@ mod_generate_server <- function(input, output, session, db){
       } else if(input$rank == "equity") {
         
         df %>% 
-          select(firm, total_eq) %>% 
-          arrange(desc(total_eq)) %>% 
+          arrange(desc(total_eq), py) %>% 
           slice(1:100) %>% 
           bind_cols(rank = 1:100) %>% 
           transmute(`排名` = rank, `公司名称` = firm, `累计权益销售金额（亿元）` = round(total_eq, 1)) -> tbl
@@ -141,8 +142,7 @@ mod_generate_server <- function(input, output, session, db){
       } else {
         
         df %>% 
-          select(firm, total_area) %>% 
-          arrange(desc(total_area)) %>% 
+          arrange(desc(total_area), py) %>% 
           slice(1:100) %>% 
           bind_cols(rank = 1:100) %>% 
           transmute(`排名` = rank, `公司名称` = firm, `累计销售面积（万平方米）` = round(total_area, 1)) -> tbl
@@ -162,13 +162,18 @@ mod_generate_server <- function(input, output, session, db){
     showtext::showtext.auto()
     showtext::showtext.opts(dpi = 300)
     
-    if(input$current == TRUE){
-      month <- lubridate::month(Sys.Date())
-    } else {
-      month <- lubridate::month(Sys.Date())-1
-    }
+    isolate({
+      
+      if(input$current == TRUE){
+        month <- lubridate::month(Sys.Date())
+      } else {
+        month <- lubridate::month(Sys.Date())-1
+      }
+      
+    })
     
     
+    showtext::showtext_auto() 
     tibble(x = 0, y = 0, t = str_glue("1-{month}月中国房地产企业{rank_name}TOP100")) %>% 
       ggplot(aes(x, y)) + 
       geom_text(aes(label = t), col = "#605742") + theme_void() + 
@@ -190,6 +195,7 @@ mod_generate_server <- function(input, output, session, db){
     
     (lubridate::ymd(str_glue("2020-{month + 1}-01"))-1) %>% str_split("-", simplify = TRUE) -> dates
     
+    showtext::showtext_auto() 
     tibble(x = 0, y = 0, 
            t = str_glue("统计日期：2020年1月1日-{dates[2] %>% str_remove('^0')}月{dates[3]}日")) %>% 
       ggplot(aes(x, y)) + 
