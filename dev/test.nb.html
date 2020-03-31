@@ -1751,13 +1751,13 @@ summary {
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuXG5cblN5cy5zZXRsb2NhbGUoY2F0ZWdvcnkgPSBcIkxDX0FMTFwiLCBsb2NhbGUgPSBcImNoc1wiKVxuXG5saWJyYXJ5KHRpZHl2ZXJzZSlcbmBgYCJ9 -->
-<pre class="r"><code>
-
-Sys.setlocale(category = &quot;LC_ALL&quot;, locale = &quot;chs&quot;)
-
-library(tidyverse)</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuU3lzLnNldGxvY2FsZShjYXRlZ29yeSA9IFwiTENfQUxMXCIsIGxvY2FsZSA9IFwiY2hzXCIpXG5cbmBgYCJ9 -->
+<pre class="r"><code>Sys.setlocale(category = &quot;LC_ALL&quot;, locale = &quot;chs&quot;)
+</code></pre>
 <!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIFwiTENfQ09MTEFURT1DaGluZXNlIChTaW1wbGlmaWVkKV9DaGluYS45MzY7TENfQ1RZUEU9Q2hpbmVzZSAoU2ltcGxpZmllZClfQ2hpbmEuOTM2O0xDX01PTkVUQVJZPUNoaW5lc2UgKFNpbXBsaWZpZWQpX0NoaW5hLjkzNjtMQ19OVU1FUklDPUM7TENfVElNRT1DaGluZXNlIChTaW1wbGlmaWVkKV9DaGluYS45MzZcIlxuIn0= -->
+<pre><code>[1] &quot;LC_COLLATE=Chinese (Simplified)_China.936;LC_CTYPE=Chinese (Simplified)_China.936;LC_MONETARY=Chinese (Simplified)_China.936;LC_NUMERIC=C;LC_TIME=Chinese (Simplified)_China.936&quot;</code></pre>
+<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
@@ -1808,35 +1808,132 @@ df %&gt;% write_excel_csv(&quot;df.csv&quot;)</code></pre>
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInRibF9kZiIsInRibCIsImRhdGEuZnJhbWUiXSwibmNvbCI6NywibnJvdyI6MX0sInJkZiI6Ikg0c0lBQUFBQUFBQUJuV1FYVXZETUJTR1R6K3l1b0tpK0R0V2RBT250MzR3Mk5YWVZXOWptNjdCTENsSnhxWlgvdkxOMDlyTUVyQlF6dGVUNUQzditqV2ZwWGtLQUJGRW94QWlnaW1RbDlYVDdBRWdEckVJSUlaeEd3OEkzV0tTNEg4OUdNVEwxZHNDNDJYWGd6RC95K0hiWjgxNjhZd3g3ZWN3WU1GanlYeDZtRTg5RlVUU0xUTTltZlROVWFYMGxscUg3SGxwYXplcUdkL1VicFFXU2lodEdsb3dCK001NjRxTGlndG0rSmVyazVKSncrMm5yNkVRMUJoUGJWcFNTN05Lb3p3UEgydTF6NXpzZHRtd2RlV0VINGFqQnllcXNWeEpSTVBXYStLOUVtaXZjYk9UN2RYbHBLaDM4bU55Zi9mNGo3dkJJRTkrSHcxUC9XWEVtY1hraHN1ek5ZSytNOUVYVjdoRXQwUFdhQzdQZm1MWFpGWlpLZ1lPdTA2M0hSeC9BTXR5WGFsa0FnQUEifQ== -->
-<div data-pagedtable="false">
-<script data-pagedtable-source type="application/json">
-{"columns":[{"label":["format"],"name":[1],"type":["chr"],"align":["left"]},{"label":["width"],"name":[2],"type":["int"],"align":["right"]},{"label":["height"],"name":[3],"type":["int"],"align":["right"]},{"label":["colorspace"],"name":[4],"type":["chr"],"align":["left"]},{"label":["matte"],"name":[5],"type":["lgl"],"align":["right"]},{"label":["filesize"],"name":[6],"type":["int"],"align":["right"]},{"label":["density"],"name":[7],"type":["chr"],"align":["left"]}],"data":[{"1":"JPEG","2":"600","3":"128","4":"sRGB","5":"FALSE","6":"0","7":"72x72"}],"options":{"columns":{"min":{},"max":[10],"total":[7]},"rows":{"min":[10],"max":[10],"total":[1]},"pages":{}}}
-  </script>
-</div>
-<!-- rnb-frame-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuXG5saWJyYXJ5KG1hZ2ljaylcblxuaW1hZ2VfcmVhZChcIi4uL2hlYWRlci5qcGdcIikgLT4gaGVhZGVyXG5mb290ZXIgPC0gaW1hZ2VfcmVhZChcIi4uL2Zvb3Rlci5qcGdcIilcblxuXG5cbnNob3d0ZXh0OjpzaG93dGV4dC5hdXRvKClcbnNob3d0ZXh0OjpzaG93dGV4dC5vcHRzKGRwaSA9IDMwMClcbm1vbnRoIDwtIGx1YnJpZGF0ZTo6bW9udGgoU3lzLkRhdGUoKSlcbnRpYmJsZSh4ID0gMCwgeSA9IDAsIHQgPSBzdHJfZ2x1ZShcIjEte21vbnRofeaciOS4reWbveaIv+WcsOS6p+S8geS4mumUgOWUrumHkeminVRPUDEwMFwiKSkgJT4lIFxuZ2dwbG90KGFlcyh4LCB5KSkgKyBcbiAgZ2VvbV90ZXh0KGFlcyhsYWJlbCA9IHQpLCBjb2wgPSBcIiM2MDU3NDJcIikgKyB0aGVtZV92b2lkKCkgKyBcbiAgdGhlbWUodGV4dCA9IGVsZW1lbnRfdGV4dChmYWNlID0gXCJib2xkXCIpKVxuZ2dzYXZlKFwibmFtZS5wbmdcIilcblxuXG5pbWFnZV9yZWFkKFwibmFtZS5wbmdcIikgJT4lIFxuICBpbWFnZV90cmltKCkgJT4lIFxuICBpbWFnZV90cmFuc3BhcmVudChjb2xvciA9IFwid2hpdGVcIikgJT4lIFxuICBpbWFnZV9zY2FsZShcIjUwMHhcIikgJT4lIFxuICBpbWFnZV9jb21wb3NpdGUoXG4gICAgaGVhZGVyLCBjb21wb3NpdGVfaW1hZ2UgPSAuLCBvZmZzZXQgPSBcIis1MCsyMjBcIlxuICApXG5cblxuXG50aWJibGUoeCA9IDAsIHkgPSAwLCB0ID0gXCLnu5/orqHmnaXmupDvvJrop4LngrnmjIfmlbBcIikgJT4lIFxuZ2dwbG90KGFlcyh4LCB5KSkgKyBcbiAgZ2VvbV90ZXh0KGFlcyhsYWJlbCA9IHQpLCBjb2wgPSBcIiM2MDU3NDJcIikgKyB0aGVtZV92b2lkKClcbmdnc2F2ZShcInNvdXJjZS5wbmdcIilcblxuKGx1YnJpZGF0ZTo6eW1kKHN0cl9nbHVlKFwiMjAyMC17bW9udGggKyAxfS0wMVwiKSktMSkgJT4lIHN0cl9zcGxpdChcIi1cIiwgc2ltcGxpZnkgPSBUUlVFKSAtPiBkYXRlc1xuXG5cbnRpYmJsZSh4ID0gMCwgeSA9IDAsIFxuICAgICAgIHQgPSBzdHJfZ2x1ZShcIue7n+iuoeaXpeacn++8mjIwMjDlubQx5pyIMeaXpS17ZGF0ZXNbMl0gJT4lIHN0cl9yZW1vdmUoJ14wJyl95pyIe2RhdGVzWzNdfeaXpVwiKSkgJT4lIFxuZ2dwbG90KGFlcyh4LCB5KSkgKyBcbiAgZ2VvbV90ZXh0KGFlcyhsYWJlbCA9IHQpLCBjb2wgPSBcIiM2MDU3NDJcIikgKyB0aGVtZV92b2lkKClcbmdnc2F2ZShcImRhdGVzLnBuZ1wiKVxuXG5pbWFnZV9yZWFkKFwic291cmNlLnBuZ1wiKSAlPiUgXG4gIGltYWdlX3RyaW0oKSAlPiUgXG4gIGltYWdlX3RyYW5zcGFyZW50KGNvbG9yID0gXCJ3aGl0ZVwiKSAlPiUgXG4gIGltYWdlX3NjYWxlKFwieDE0XCIpICU+JSBcbiAgaW1hZ2VfY29tcG9zaXRlKFxuICAgIGZvb3RlciwgY29tcG9zaXRlX2ltYWdlID0gLiwgb2Zmc2V0ID0gXCIrMzUwKzU1XCJcbiAgKSAtPiB0ZW1wXG4gIFxuaW1hZ2VfcmVhZChcImRhdGVzLnBuZ1wiKSAlPiUgXG4gIGltYWdlX3RyaW0oKSAlPiUgXG4gIGltYWdlX3RyYW5zcGFyZW50KGNvbG9yID0gXCJ3aGl0ZVwiKSAlPiUgXG4gIGltYWdlX3NjYWxlKFwieDE0XCIpICU+JSBcbiAgaW1hZ2VfY29tcG9zaXRlKFxuICAgIHRlbXAsIGNvbXBvc2l0ZV9pbWFnZSA9IC4sIG9mZnNldCA9IFwiKzM1MCszMFwiXG4pIFxuXG5cblxuXG5gYGAifQ== -->
+<pre class="r"><code>
+library(magick)
+
+image_read(&quot;../header.jpg&quot;) -&gt; header
+footer &lt;- image_read(&quot;../footer.jpg&quot;)
+
+
+
+showtext::showtext.auto()
+showtext::showtext.opts(dpi = 300)
+month &lt;- lubridate::month(Sys.Date())
+tibble(x = 0, y = 0, t = str_glue(&quot;1-{month}月中国房地产企业销售金额TOP100&quot;)) %&gt;% 
+ggplot(aes(x, y)) + 
+  geom_text(aes(label = t), col = &quot;#605742&quot;) + theme_void() + 
+  theme(text = element_text(face = &quot;bold&quot;))
+ggsave(&quot;name.png&quot;)
+
+
+image_read(&quot;name.png&quot;) %&gt;% 
+  image_trim() %&gt;% 
+  image_transparent(color = &quot;white&quot;) %&gt;% 
+  image_scale(&quot;500x&quot;) %&gt;% 
+  image_composite(
+    header, composite_image = ., offset = &quot;+50+220&quot;
+  )
+
+
+
+tibble(x = 0, y = 0, t = &quot;统计来源：观点指数&quot;) %&gt;% 
+ggplot(aes(x, y)) + 
+  geom_text(aes(label = t), col = &quot;#605742&quot;) + theme_void()
+ggsave(&quot;source.png&quot;)
+
+(lubridate::ymd(str_glue(&quot;2020-{month + 1}-01&quot;))-1) %&gt;% str_split(&quot;-&quot;, simplify = TRUE) -&gt; dates
+
+
+tibble(x = 0, y = 0, 
+       t = str_glue(&quot;统计日期：2020年1月1日-{dates[2] %&gt;% str_remove(&#39;^0&#39;)}月{dates[3]}日&quot;)) %&gt;% 
+ggplot(aes(x, y)) + 
+  geom_text(aes(label = t), col = &quot;#605742&quot;) + theme_void()
+ggsave(&quot;dates.png&quot;)
+
+image_read(&quot;source.png&quot;) %&gt;% 
+  image_trim() %&gt;% 
+  image_transparent(color = &quot;white&quot;) %&gt;% 
+  image_scale(&quot;x14&quot;) %&gt;% 
+  image_composite(
+    footer, composite_image = ., offset = &quot;+350+55&quot;
+  ) -&gt; temp
+  
+image_read(&quot;dates.png&quot;) %&gt;% 
+  image_trim() %&gt;% 
+  image_transparent(color = &quot;white&quot;) %&gt;% 
+  image_scale(&quot;x14&quot;) %&gt;% 
+  image_composite(
+    temp, composite_image = ., offset = &quot;+350+30&quot;
+) 
+</code></pre>
+<!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInRibF9kZiIsInRibCIsImRhdGEuZnJhbWUiXSwibmNvbCI6NywibnJvdyI6MX0sInJkZiI6Ikg0c0lBQUFBQUFBQUJsMVF5MjdESUJEY1lCTTNsdnFRK2gzeHhWV1ZYdHRLdVZWUlRya1NHOGVvQkNJZ1N0cFRQNmIvMkZ2U3RXTWlCQkxzN3V3QXM3TjhYNVg1S2dlQUJKSXhnWVJpQ3ZSdDhWSStBNlFFaXhHa01PbmlFVW1QbUdTNEg0SkdzdmlZWTdqdElTQy9RZjRYVVZPN25MOWl6Qy85ZmcvY2ZvVmNXczZPNVN3U1FSWGJjanN3c3dFY045cHNtZk9VZzZoZDYxc3RGNXZXdC9KS1MyM3NqbFhjay9HZTg4Vk5JeVMzNHR2WFdjMlZGZTRyMWxCSlptMmtOcStaWTBWalVGNUVueGg5S0x6c2JsanlnOGNaRjRaVFJNNzB6Z210a0VvNnEybjB5OGhFd1AxZWRVL1gwNnJkcTgvcFUrQXRCTjZHUG1lWEw4bDVlSXA2cTdqYUNIVTFSckkxbDBOeGh5UDBFeFE3STlUVlRVUnQ0YlJqTXZEWEkvMXNjUG9IS0NwSTZXRUNBQUE9In0= -->
-<div data-pagedtable="false">
-<script data-pagedtable-source type="application/json">
-{"columns":[{"label":["format"],"name":[1],"type":["chr"],"align":["left"]},{"label":["width"],"name":[2],"type":["int"],"align":["right"]},{"label":["height"],"name":[3],"type":["int"],"align":["right"]},{"label":["colorspace"],"name":[4],"type":["chr"],"align":["left"]},{"label":["matte"],"name":[5],"type":["lgl"],"align":["right"]},{"label":["filesize"],"name":[6],"type":["int"],"align":["right"]},{"label":["density"],"name":[7],"type":["chr"],"align":["left"]}],"data":[{"1":"PNG","2":"676","3":"759","4":"sRGB","5":"TRUE","6":"0","7":"38x38"}],"options":{"columns":{"min":{},"max":[10],"total":[7]},"rows":{"min":[10],"max":[10],"total":[1]},"pages":{}}}
-  </script>
-</div>
-<!-- rnb-frame-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuXG5kZiAlPiUgc2VsZWN0KGZpcm0sIHRvdGFsX2FyZWEpICU+JSBcbmdndGV4dHRhYmxlKHJvd3MgPSBOVUxMLCBcbiAgICAgICAgICAgIHRoZW1lID0gdHRoZW1lKGJhc2VfY29sb3VyID0gXCJncmF5NTBcIixcbiAgICAgICAgICAgICAgY29sbmFtZXMuc3R5bGUgPSBjb2xuYW1lc19zdHlsZShzaXplID0gOCwgY29sb3IgPSBcIndoaXRlXCIsXG4gICAgICAgICAgICAgICAgZmlsbCA9IFwiI2YzYTA2ZVwiLCBsaW5ld2lkdGggPSAwLjMpLFxuICAgICAgICAgICAgICBwYWRkaW5nID0gdW5pdChjKDgsIDMpLCBcIm1tXCIpLCBiYXNlX3NpemUgPSAxNCwgXG4gICAgICAgICAgICAgIHRib2R5LnN0eWxlID0gdGJvZHlfc3R5bGUoc2l6ZSA9IDgsXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgZmlsbCA9IGMoXCIjZjRkNWIxXCIsIFwiI2VlZWRlZFwiKSxcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBjb2xvciA9IFwiZ3JheTEwXCIsIGZhY2UgPSBcInBsYWluXCIsXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgbGluZXdpZHRoID0gMC4zKVxuICAgICAgICAgICAgKSkgKyB0aGVtZSh0ZXh0ID0gZWxlbWVudF90ZXh0KGZhbWlseSA9IFwic291cmNlLWhhbi1zYW5zLWNuXCIpKSAtPiBnXG5cbmltYWdlX3JlYWQoXCIuLi9pbWdzLnBuZ1wiKS0+aW1nXG5jcm9zc19kZihsaXN0KHkgPSBjKDE6MyksIHggPSAxOjEwKSkgJT4lIFxuICBtdXRhdGUodCA9IFwi6KeC54K55oyH5pWw56CU56m26ZmiXCIpICU+JSBcbiAgZ2dwbG90KGFlcyh4LCB5KSkgKyBcbiAgZ2VvbV90ZXh0KGFlcyhsYWJlbCA9IHQpLCBhbmdsZSA9IDEzNSwgc2l6ZSA9IDIsIGNvbG9yID0gXCIjYjhiNGFkXCIpICtcbiAgeWxpbShjKC0xLDEwKSkgK1xuICB0aGVtZV92b2lkKClcbnNob3d0ZXh0OjpzaG93dGV4dF9hdXRvKClcbmdnc2F2ZShcIm1hcmtzLnBuZ1wiLCApXG5cblxubG9nbyA8LSBpbWFnZV9yZWFkKFwiaHR0cHM6Ly93d3cuci1wcm9qZWN0Lm9yZy9sb2dvL1Jsb2dvLnBuZ1wiKVxuaW1nIDwtIGltYWdlX3RyaW0oaW1hZ2VfcmVhZChcIi4uL3RibC5wbmdcIikpXG5pbWFnZV9jaFxuXG5pbWcgJT4lIFxuaW1hZ2VfYW5ub3RhdGUoXCLmsYfmgLtcIilcblxuaW1hZ2VfcmVhZChcIkU6L3NhbGVyL2Rldi9tYXNrXy5wbmdcIikgJT4lIFxuICBpbWFnZV90cmFuc3BhcmVudChcIndoaXRlXCIpLT4gbWFza1xuaW1nICBcblxuaW1nXG5cbmltZ3MgPC0gYyhpbWcsIG1hc2spXG5cbmltYWdlX2ZsYXR0ZW4oaW1ncywgXCJNdWx0aXBseVwiKVxuIyBpbWFnZV90cmltKCkgJT4lIGltYWdlX3JvdGF0ZSg5MCkgJT4lIFxuICBpbWFnZV9jb21wb3NpdGUoaW1nLCBjb21wb3NpdGVfaW1hZ2UgPSAuKVxuYGBgIn0= -->
+<pre class="r"><code>
+df %&gt;% select(firm, total_area) %&gt;% 
+ggtexttable(rows = NULL, 
+            theme = ttheme(base_colour = &quot;gray50&quot;,
+              colnames.style = colnames_style(size = 8, color = &quot;white&quot;,
+                fill = &quot;#f3a06e&quot;, linewidth = 0.3),
+              padding = unit(c(8, 3), &quot;mm&quot;), base_size = 14, 
+              tbody.style = tbody_style(size = 8,
+                                  fill = c(&quot;#f4d5b1&quot;, &quot;#eeeded&quot;),
+                                  color = &quot;gray10&quot;, face = &quot;plain&quot;,
+                                  linewidth = 0.3)
+            )) + theme(text = element_text(family = &quot;source-han-sans-cn&quot;)) -&gt; g
+
+image_read(&quot;../imgs.png&quot;)-&gt;img
+cross_df(list(y = c(1:3), x = 1:10)) %&gt;% 
+  mutate(t = &quot;观点指数研究院&quot;) %&gt;% 
+  ggplot(aes(x, y)) + 
+  geom_text(aes(label = t), angle = 135, size = 2, color = &quot;#b8b4ad&quot;) +
+  ylim(c(-1,10)) +
+  theme_void()
+showtext::showtext_auto()
+ggsave(&quot;marks.png&quot;, )
+
+
+logo &lt;- image_read(&quot;https://www.r-project.org/logo/Rlogo.png&quot;)
+img &lt;- image_trim(image_read(&quot;../tbl.png&quot;))
+image_ch
+
+img %&gt;% 
+image_annotate(&quot;汇总&quot;)
+
+image_read(&quot;E:/saler/dev/mask_.png&quot;) %&gt;% 
+  image_transparent(&quot;white&quot;)-&gt; mask
+img  
+
+img
+
+imgs &lt;- c(img, mask)
+
+image_flatten(imgs, &quot;Multiply&quot;)
+# image_trim() %&gt;% image_rotate(90) %&gt;% 
+  image_composite(img, composite_image = .)</code></pre>
+<!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInRibF9kZiIsInRibCIsImRhdGEuZnJhbWUiXSwibmNvbCI6NywibnJvdyI6MX0sInJkZiI6Ikg0c0lBQUFBQUFBQUJuVlFUV3NDTVJDZC9USjF3U0wwMEYvaHdpS1VlbTBGYjBVOGVZMjdXVGMwSmtzUzBmYlVYNjZkWFRkMkNUU1F6SnMzTDhuTTJ5eTM4M1NiQWtBRTBTaUVLRUVJeWZ0Nk1YOEJpRU5NQW9oaDNNWXppcDRRRU56VFFTRmFmNnd3VERvS291VWZmazQ4YVd3MnF6ZU02YTNlcmNrQUQ3VWt6MS9QdUwwMkVra1B6UFJhMHBPalN1a0R0VTV5NHFXdFhhbG1mRis3VWxvb29iUnBhTUdjR085Wmx6eFVYREREdjExT1NpWU50MTkrRDRXZ3huajlwaVcxTktzMHR1Zkp4MXFkTXRkMk8yNzRnOGNWRjRhTEp5YXFzVnhKbElhdDJiNkRnZmFJNlZHMlQ1ZXpvajdLejFtKytNZmVZSURKN2MvdzJyK1ZPSytZM0hONWQwYlFIUk45OG9nemRDTmtqZWJ5YmlleUpyUEtVakV3MkRIZGNIRDVCYWRHNmh0a0FnQUEifQ== -->
-<div data-pagedtable="false">
-<script data-pagedtable-source type="application/json">
-{"columns":[{"label":["format"],"name":[1],"type":["chr"],"align":["left"]},{"label":["width"],"name":[2],"type":["int"],"align":["right"]},{"label":["height"],"name":[3],"type":["int"],"align":["right"]},{"label":["colorspace"],"name":[4],"type":["chr"],"align":["left"]},{"label":["matte"],"name":[5],"type":["lgl"],"align":["right"]},{"label":["filesize"],"name":[6],"type":["int"],"align":["right"]},{"label":["density"],"name":[7],"type":["chr"],"align":["left"]}],"data":[{"1":"PNG","2":"836","3":"5893","4":"sRGB","5":"FALSE","6":"0","7":"118x118"}],"options":{"columns":{"min":{},"max":[10],"total":[7]},"rows":{"min":[10],"max":[10],"total":[1]},"pages":{}}}
-  </script>
-</div>
-<!-- rnb-frame-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubWFzayAlPiVcbiAgaW1hZ2VfdHJpbSgpICU+JSBcbiAgaW1hZ2Vfc2NhbGUoXCI4MDB4XCIpIC0+IHNjYWxlZF9tYXNrXG5cbmltYWdlX2FwcGVuZChyZXAoc2NhbGVkX21hc2ssIDgpLCBzdGFjayA9IFRSVUUpICU+JSBcbiAgICBpbWFnZV9ib3JkZXIoZ2VvbWV0cnkgPSBcIjUweDYwXCIsIGNvbG9yID0gXCJ3aGl0ZVwiKS0+IGxhcmdlX21hc2tcblxuXG5sYXJnZV9tYXNrICU+JSBpbWFnZV93cml0ZShcIm1hc2sucG5nXCIpXG5cbm1hc2sgPC0gaW1hZ2VfcmVhZChcIm1hc2sucG5nXCIpXG5pbWFnZV9mbGF0dGVuKGMoaW1hZ2VfdHJpbShpbWcpLCBtYXNrKSwgXCJNdWx0aXBseVwiKVxuYGBgIn0= -->
+<pre class="r"><code>mask %&gt;%
+  image_trim() %&gt;% 
+  image_scale(&quot;800x&quot;) -&gt; scaled_mask
+
+image_append(rep(scaled_mask, 8), stack = TRUE) %&gt;% 
+    image_border(geometry = &quot;50x60&quot;, color = &quot;white&quot;)-&gt; large_mask
+
+
+large_mask %&gt;% image_write(&quot;mask.png&quot;)
+
+mask &lt;- image_read(&quot;mask.png&quot;)
+image_flatten(c(image_trim(img), mask), &quot;Multiply&quot;)</code></pre>
+<!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->

@@ -2,4 +2,6 @@
 
 firms <- unique(df$firm)[-1]
 
+usethis::use_data(pydf)
+
 usethis::use_data(firms)
