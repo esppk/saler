@@ -5,9 +5,9 @@ account: esppk
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 1992207
-bundleId: 2942475
+bundleId: 2948502
 url: https://esppk.shinyapps.io/saler/
-when: 1585549582.15035
+when: 1585656552.7907
 asMultiple: FALSE
 asStatic: FALSE
 ignoredFiles: dates.png|footer.png|header.png|img.png|imgs.png|name.png|source.png|tbl.png|test.png|dev

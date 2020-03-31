@@ -153,9 +153,9 @@ image_ch
 img %>% 
 image_annotate("汇总")
 
-image_read("E:/saler/dev/mask_.png") %>% 
-  image_transparent("white")-> mask
-img  
+# image_read("E:/saler/dev/mask_.png") %>% 
+#   image_transparent("white")-> mask
+# img  
 
 img
 
@@ -185,8 +185,56 @@ image_flatten(c(image_trim(img), mask), "Multiply")
 
 
 
+```{r}
+pydf %>% 
+  mutate(firm = replace(firm, firm == "奥园控股", "奥园集团"))
+  mutate(py = replace(py, py == "askg", "asjt")) -> pydf
+```
 
 
+```{r}
+db <- mongo(collection = "saler", db = "saler", 
+              url = "mongodb+srv://saler:5al3r@cluster-opuen.mongodb.net/test?retryWrites=true&w=majority", 
+              verbose = FALSE)
+
+df <- db$find() %>% mutate_at(vars(-firm), as.numeric) %>% 
+     
+     mutate(cur_sales = case_when(
+                  adj_sale != 0 ~ adj_sale,  
+                  sale_firm != 0 ~ sale_firm,
+                  TRUE ~ cur_preds),
+            cur_eq = if_else(adj_eq == 0, eq_firm, adj_eq),
+            cur_area = if_else(adj_area == 0, area_firm, adj_area),
+            
+            total_sales = case_when(
+                    cum_adj_sale != 0 ~ cum_adj_sale,
+                    cum_sale != 0 ~ cum_sale,
+                    TRUE ~ cur_sales + past_sales),
+            total_eq = case_when(
+              cum_adj_eq != 0 ~ cum_adj_eq,
+              cum_eq != 0 ~ cum_eq,
+              cur_eq != 0 ~ past_eq + cur_eq,
+              TRUE ~ total_sales * eq_ratio),
+            total_area = case_when(
+              cum_adj_area != 0 ~ cum_adj_area,
+              cum_area != 0 ~ cum_area,
+              cur_area != 0 ~ cur_area + past_area,
+              TRUE ~  total_sales/price),
+            source = case_when(
+              (cum_adj_eq + cum_adj_sale + cum_adj_area + adj_eq + adj_sale + adj_area) > 0 ~ "指数调整",
+              (cum_eq + cum_sale + cum_area + eq_firm + sale_firm + area_firm) > 0 ~ "公司提供",
+              TRUE ~ "指数预测")
+     ) %>% 
+     select(firm, starts_with("total"), starts_with("cur"), source) %>% 
+     left_join(pydf, by = "firm") %>% 
+     mutate_at(vars(starts_with("total")), ~ round(.x, 1))
+
+ df %>% 
+  arrange(desc(total_sales), py) %>% 
+  slice(1:100) %>% 
+  bind_cols(rank = 1:100) %>% 
+  transmute(`排名` = rank, `公司名称` = firm, `累计全口径销售（亿元）` = round(total_sales, 1))
+```
 
 
 

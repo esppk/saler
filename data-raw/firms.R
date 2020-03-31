@@ -1,6 +1,6 @@
 ## code to prepare `firms` dataset goes here
 
-firms <- unique(df$firm)[-1]
+firms <- unique(pydf$firm)
 
 usethis::use_data(pydf)
 
